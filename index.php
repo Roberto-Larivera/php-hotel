@@ -41,21 +41,36 @@ $hotels = [
 
 //$_GET('');
 
-$nameHotel = $_GET['name_hotel'] ?? null;
-$voteHotel = $_GET['vote_hotel'] ?? null;
-$parkingHotel = $_GET['parking_hotel']  ?? null;
-if ($parkingHotel != null) {
-    $parkingHotel = filter_var($_GET['parking_hotel'], FILTER_VALIDATE_BOOLEAN);
-}
-var_dump($nameHotel);
-var_dump($voteHotel);
+//$nameHotel = $_GET['name_hotel'] ?? '';
+$voteHotel = $_GET['vote_hotel'] ?? 0;
+
+$parkingHotel = $_GET['parking_hotel'] ?? null;
 var_dump($parkingHotel);
-$filterList = [];
+
+if ($parkingHotel != 'null') {
+    $parkingHotel = filter_var($_GET['parking_hotel'], FILTER_VALIDATE_BOOLEAN);
+} else {
+    $parkingHotel = null;
+}
+var_dump($parkingHotel);
+
+
+echo '<br><br><br><br>';
+//var_dump($nameHotel);
+//echo '<br>';
+var_dump($voteHotel);
+echo '<br>';
+var_dump($parkingHotel);
+$filterList = array();
 $filterListBoll = false;
 $resetButton = false;
 
-if ($nameHotel != null &&  $nameHotel != '' || $voteHotel != null && $voteHotel != 0 || $parkingHotel != null || $parkingHotel == false) {
+//
+
+if ($voteHotel != 0 ||  $parkingHotel != null) {
     $filterListBoll = true;
+    $filterList = array();
+
     // if($nameHotel != null &&  $nameHotel != ''){
     //     foreach ($hotels as $hotelsKey => $hotel) {
     //         if($nameHotel){
@@ -68,27 +83,39 @@ if ($nameHotel != null &&  $nameHotel != '' || $voteHotel != null && $voteHotel 
     //         }
     //     }
     // }
-    // if ($voteHotel != null && $voteHotel != 0) {
-    //     foreach ($hotels as $hotelsKey => $hotel) {
-
-    //         if ($hotel['vote'] >= $voteHotel) {
-
-    //             echo '<br> entrato vote  ';
-
-    //             $filterList[] = $hotel;
-    //         }
-    //     }
-    // }
-    if ($parkingHotel != null || $parkingHotel == false) {
-        echo '<br> #### diverso null';
+    if ($voteHotel != 0 && $parkingHotel != null) {
         foreach ($hotels as $hotelsKey => $hotel) {
 
-            if ($hotel['parking'] === $parkingHotel) {
-                echo '<br> entrato parking ';
-                var_dump($parkingHotel);
-                var_dump($hotel['parking']);
+            if ($hotel['vote'] >= $voteHotel && $hotel['parking'] === $parkingHotel) {
+
+                echo '<br> entrato vote  ';
 
                 $filterList[] = $hotel;
+            }
+        }
+    } else {
+        if ($voteHotel != 0) {
+            foreach ($hotels as $hotelsKey => $hotel) {
+
+                if ($hotel['vote'] >= $voteHotel) {
+
+                    echo '<br> entrato vote  ';
+
+                    $filterList[] = $hotel;
+                }
+            }
+        }
+        if ($parkingHotel != null) {
+            echo '<br> #### diverso null';
+            foreach ($hotels as $hotelsKey => $hotel) {
+
+                if ($hotel['parking'] === $parkingHotel) {
+                    echo '<br> entrato parking ';
+                    var_dump($parkingHotel);
+                    var_dump($hotel['parking']);
+
+                    $filterList[] = $hotel;
+                }
             }
         }
     }
@@ -100,13 +127,13 @@ if ($nameHotel != null &&  $nameHotel != '' || $voteHotel != null && $voteHotel 
 if ($resetButton) {
     $filterList = [];
     $filterListBoll = false;
-    $nameHotel = null;
-    $voteHotel = null;
-    $parkingHotel = null;
+    $nameHotel = '';
+    $voteHotel = 0;
+    $parkingHotel = '';
     $resetButton = false;
 }
-echo '<br> ************ filterlistboll';
-var_dump($filterListBoll);
+//echo '<br> ************ filterlistboll';
+//var_dump($filterListBoll);
 
 ?>
 
@@ -134,7 +161,7 @@ var_dump($filterListBoll);
         </div>
         <pre>
             <?php
-            echo var_dump($filterList);
+            //echo var_dump($filterList);
             ?>
         </pre>
 
@@ -142,7 +169,7 @@ var_dump($filterListBoll);
             <div class="col-6 offset-3">
                 <form action="" method="GET">
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-auto">
                             <label for="filter_name" class="form-label">Name Hotel</label>
                         </div>
@@ -151,7 +178,7 @@ var_dump($filterListBoll);
                         <div class="col-auto">
                             <input type="text" class="form-control" id="filter_name" placeholder="Hotel Example" name="name_hotel">
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row">
                         <div class="col-auto">
@@ -175,7 +202,7 @@ var_dump($filterListBoll);
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" id="filter_parking-1" value="null" checked name="parking_hotel">
                                 <label class="form-check-label" for="filter_parking-1">
-                                    No choice
+                                    Everyone
                                 </label>
                             </div>
                             <div class="form-check">
@@ -195,10 +222,10 @@ var_dump($filterListBoll);
                     <div class="row mb-3">
                         <div class="col-auto">
                             <div class="col-auto">
-                                <button class="btn btn-primary mb-3">
+                                <button type="submit" class="btn btn-primary mb-3">
                                     Filter
                                 </button>
-                                <button reset value="true" class="btn btn-primary mb-3">
+                                <button reset  value="true" class="btn btn-primary mb-3">
                                     Reset
                                 </button>
                             </div>
