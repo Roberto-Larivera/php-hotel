@@ -38,21 +38,38 @@ $hotels = [
     ],
 
 ];
+
+
+
 ?>
 
 <?php  ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Hotel</title>
 </head>
+
 <body>
-    <pre>
-        <?php echo var_dump($hotels) ?>
-    </pre>
+
+    <div>
+        <?php
+        foreach ($hotels as $hotel) {
+            echo '<ul>';
+            foreach ($hotel as $hotelKey => $hotelValue) {
+                echo '<li>';
+                echo $hotelKey . ': ' . $hotelValue;
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
+        ?>
+    </div>
 </body>
+
 </html>
