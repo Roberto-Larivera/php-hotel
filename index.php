@@ -42,85 +42,55 @@ $hotels = [
 //$_GET('');
 
 //$nameHotel = $_GET['name_hotel'] ?? '';
-$voteHotel = $_GET['vote_hotel'] ?? 0;
-
+$voteHotel = $_GET['vote_hotel'] ?? 1;
+/*
 $parkingHotel = $_GET['parking_hotel'] ?? null;
-var_dump($parkingHotel);
-
+//var_dump( $parkingHotel);
 if ($parkingHotel != 'null') {
-    $parkingHotel = filter_var($_GET['parking_hotel'], FILTER_VALIDATE_BOOLEAN);
+    $parkingHotel = filter_var($parkingHotel, FILTER_VALIDATE_BOOLEAN);
 } else {
     $parkingHotel = null;
 }
-var_dump($parkingHotel);
+*/
+if (isset($_GET['parking_hotel'])) {
+    $parkingHotel = $_GET['parking_hotel'];
+    if ($parkingHotel == 'true') {
+        $parkingHotel = true;
+    } elseif ($parkingHotel == 'false') {
+        $parkingHotel = false;
+    }
+} else {
+    $parkingHotel = '';
+}
 
-
-echo '<br><br><br><br>';
-//var_dump($nameHotel);
-//echo '<br>';
-var_dump($voteHotel);
-echo '<br>';
-var_dump($parkingHotel);
 $filterList = array();
 $filterListBoll = false;
 $resetButton = false;
 
-//
-
-if ($voteHotel != 0 ||  $parkingHotel != null) {
-    $filterListBoll = true;
+if (($parkingHotel !== '')) {
     $filterList = array();
-
-    // if($nameHotel != null &&  $nameHotel != ''){
-    //     foreach ($hotels as $hotelsKey => $hotel) {
-    //         if($nameHotel){
-    //             $filterName = in_array($nameHotel, $hotel);
-    //             if($filterName ){
-    //                 echo 'entrato name <br>';
-
-    //                 $filterList[]= $hotel;
-    //             }
-    //         }
-    //     }
-    // }
-    if ($voteHotel != 0 && $parkingHotel != null) {
+    
+        $filterListBoll = true;
         foreach ($hotels as $hotelsKey => $hotel) {
 
-            if ($hotel['vote'] >= $voteHotel && $hotel['parking'] === $parkingHotel) {
-
-                echo '<br> entrato vote  ';
-
+            if ($hotel['vote'] >= $voteHotel && $hotel['parking'] == $parkingHotel) {
                 $filterList[] = $hotel;
             }
         }
-    } else {
-        if ($voteHotel != 0) {
-            foreach ($hotels as $hotelsKey => $hotel) {
+    
+} elseif ($voteHotel > 1) {
+    $filterListBoll = true;
+    $filterList = array();
+    foreach ($hotels as $hotelsKey => $hotel) {
 
-                if ($hotel['vote'] >= $voteHotel) {
+        if ($hotel['vote'] >= $voteHotel) {
 
-                    echo '<br> entrato vote  ';
-
-                    $filterList[] = $hotel;
-                }
-            }
-        }
-        if ($parkingHotel != null) {
-            echo '<br> #### diverso null';
-            foreach ($hotels as $hotelsKey => $hotel) {
-
-                if ($hotel['parking'] === $parkingHotel) {
-                    echo '<br> entrato parking ';
-                    var_dump($parkingHotel);
-                    var_dump($hotel['parking']);
-
-                    $filterList[] = $hotel;
-                }
-            }
+            $filterList[] = $hotel;
         }
     }
 } else {
     $filterListBoll = false;
+    $filterList = array();
 }
 
 
@@ -129,11 +99,9 @@ if ($resetButton) {
     $filterListBoll = false;
     $nameHotel = '';
     $voteHotel = 0;
-    $parkingHotel = '';
+    $parkingHotel = 'null';
     $resetButton = false;
 }
-//echo '<br> ************ filterlistboll';
-var_dump($filterList);
 
 ?>
 
@@ -154,17 +122,12 @@ var_dump($filterList);
 <body>
     <div class="container py-5">
         <div class="row mb-5">
-            <div class="col text-center">
+            <div class="col text-center fw-bolder">
                 <h1>
                     PHP Hotels
                 </h1>
             </div>
         </div>
-        <pre>
-            <?php
-            //echo var_dump($filterList);
-            ?>
-        </pre>
 
         <div class="row">
             <div class="col-6 offset-3">
@@ -189,9 +152,9 @@ var_dump($filterList);
                     <div class="row mb-3">
                         <div class="col-10 d-flex gap-5">
                             <span>
-                                0
+                                1
                             </span>
-                            <input type="range" class="form-range" min="0" max="5" value="0" id="filter_hotel" name="vote_hotel">
+                            <input type="range" class="form-range" min="1" max="5" value="1" id="filter_hotel" name="vote_hotel">
                             <span>
                                 5
                             </span>
@@ -201,7 +164,7 @@ var_dump($filterList);
                     <div class="row mb-3">
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" id="filter_parking-1" value="null" checked name="parking_hotel">
+                                <input class="form-check-input" type="radio" id="filter_parking-1" value="" checked name="parking_hotel">
                                 <label class="form-check-label" for="filter_parking-1">
                                     Everyone
                                 </label>
@@ -226,7 +189,7 @@ var_dump($filterList);
                                 <button type="submit" class="btn btn-primary mb-3">
                                     Filter
                                 </button>
-                                <button reset value="true" class="btn btn-primary mb-3">
+                                <button reset class="btn btn-primary mb-3">
                                     Reset
                                 </button>
                             </div>
@@ -286,9 +249,9 @@ var_dump($filterList);
                         ?>
                     </tbody>
                 </table>
-                <?php 
-                    if(count($filterList) == 0 && $filterListBoll == true){
-                        echo '<div class="text-center fs-1 ">
+                <?php
+                if (count($filterList) == 0 && $filterListBoll == true) {
+                    echo '<div class="text-center fs-1 ">
                             <h2 class="text-bg-danger p-3 rounded-pill ">
                                 Ci dispiace, non sono stati trovati Hotel con questi filtri
                             </h2>
@@ -296,8 +259,7 @@ var_dump($filterList);
                                 &#128546;
                             </span>
                         </div>';
-
-                    }    
+                }
                 ?>
             </div>
         </div>
