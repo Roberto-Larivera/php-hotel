@@ -133,7 +133,7 @@ if ($resetButton) {
     $resetButton = false;
 }
 //echo '<br> ************ filterlistboll';
-//var_dump($filterListBoll);
+var_dump($filterList);
 
 ?>
 
@@ -148,6 +148,7 @@ if ($resetButton) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Hotel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -225,7 +226,7 @@ if ($resetButton) {
                                 <button type="submit" class="btn btn-primary mb-3">
                                     Filter
                                 </button>
-                                <button reset  value="true" class="btn btn-primary mb-3">
+                                <button reset value="true" class="btn btn-primary mb-3">
                                     Reset
                                 </button>
                             </div>
@@ -285,6 +286,19 @@ if ($resetButton) {
                         ?>
                     </tbody>
                 </table>
+                <?php 
+                    if(count($filterList) == 0 && $filterListBoll == true){
+                        echo '<div class="text-center fs-1 ">
+                            <h2 class="text-bg-danger p-3 rounded-pill ">
+                                Ci dispiace, non sono stati trovati Hotel con questi filtri
+                            </h2>
+                            <span class="" style="font-size: 5rem;">
+                                &#128546;
+                            </span>
+                        </div>';
+
+                    }    
+                ?>
             </div>
         </div>
     </div>
