@@ -1,0 +1,6 @@
+.form-range::-webkit-slider-thumb {
+  background-color: #007bff;
+}
+.form-range::-webkit-slider-runnable-track {
+  background-color: lightblue;
+}

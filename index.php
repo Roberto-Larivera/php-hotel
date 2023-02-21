@@ -117,6 +117,7 @@ if ($resetButton) {
     <title>PHP Hotel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -186,10 +187,10 @@ if ($resetButton) {
                     <div class="row mb-3">
                         <div class="col-auto">
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary mb-3">
+                                <button type="submit" class="btn btn-success mb-3">
                                     Filter
                                 </button>
-                                <button reset class="btn btn-primary mb-3">
+                                <button reset class="btn btn-outline-danger mb-3">
                                     Reset
                                 </button>
                             </div>
@@ -201,7 +202,7 @@ if ($resetButton) {
 
         <div class="row mb-5">
             <div class="col">
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
