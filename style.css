@@ -1,6 +1,20 @@
 .form-range::-webkit-slider-thumb {
-  background-color: #007bff;
+  background-color: #0dcaf0;
 }
 .form-range::-webkit-slider-runnable-track {
-  background-color: lightblue;
+  background-color: #6c757d;
+}
+body{
+    font-family: 'Lato', sans-serif;
+}
+h1{
+    font-weight: 700;
+}
+.form-check-input {
+  border-color: #6c757d;
+  background-color: #6c757d;
+}
+.form-check-input:checked {
+  border-color: #0dcaf0;
+  background-color: #0dcaf0;
 }
