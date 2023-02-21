@@ -195,6 +195,7 @@ if ($resetButton) {
                                 <button reset class="btn btn-outline-danger mb-3">
                                     Reset
                                 </button>
+                                <button class="btn btn-outline-danger mb-3" type="button" onclick="resetUrl()">Reset URL</button>
                             </div>
                         </div>
                     </div>
@@ -268,7 +269,11 @@ if ($resetButton) {
         </div>
     </div>
 
-
+    <script>
+        function resetUrl() {
+            window.location.href = window.location.pathname;
+        }
+    </script>
 
 </body>
 
