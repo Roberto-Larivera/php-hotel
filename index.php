@@ -255,9 +255,9 @@ if ($resetButton) {
                 </table>
                 <?php
                 if (count($filterList) == 0 && $filterListBoll == true) {
-                    echo '<div class="text-center fs-1 ">
+                    echo '<div id="text_not-found" class="text-center fs-1 ">
                             <h2 class="text-bg-danger p-3 rounded-pill ">
-                                Ci dispiace, non sono stati trovati Hotel con questi filtri
+                            Sorry, no hotels were found with these search filters
                             </h2>
                             <span class="" style="font-size: 5rem;">
                                 &#128546;
