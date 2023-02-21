@@ -101,7 +101,10 @@ if ($resetButton) {
     $parkingHotel = 'null';
     $resetButton = false;
 }
-
+$hotelKeys = null;
+if(count($hotels) > 0){
+    $hotelKeys = array_keys($hotels[0]);
+}
 ?>
 
 <?php  ?>
@@ -207,16 +210,21 @@ if ($resetButton) {
             <div class="col">
                 <table class="table text-light">
                     <thead>
-                        <tr>
+                        <tr class="text-capitalize">
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Parking</th>
-                            <th scope="col">Vote</th>
-                            <th scope="col">Distance to center</th>
+                            <?php 
+                            if ( isset($hotelKeys)){
+                                foreach ($hotelKeys as $hotelKeysValue) {
+                                    if($hotelKeysValue == 'distance_to_center'){
+                                        $hotelKeysValue = 'distance to center';
+                                    }
+                                    echo '<th scope="col">'.$hotelKeysValue.'</th>';
+                                }
+                            }
+                            ?>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-capitalize">
                         <?php
                         if ($filterListBoll) {
                             foreach ($filterList as $hotelsKey => $hotel) {
