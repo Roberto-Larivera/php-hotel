@@ -39,19 +39,12 @@ $hotels = [
 
 ];
 
-//$_GET('');
-
-//$nameHotel = $_GET['name_hotel'] ?? '';
 $voteHotel = $_GET['vote_hotel'] ?? 1;
-/*
-$parkingHotel = $_GET['parking_hotel'] ?? null;
-//var_dump( $parkingHotel);
-if ($parkingHotel != 'null') {
-    $parkingHotel = filter_var($parkingHotel, FILTER_VALIDATE_BOOLEAN);
-} else {
-    $parkingHotel = null;
-}
-*/
+$filterList = array();
+$filterListBoll = false;
+$resetButton = false;
+
+
 if (isset($_GET['parking_hotel'])) {
     $parkingHotel = $_GET['parking_hotel'];
     if ($parkingHotel == 'true') {
@@ -63,9 +56,8 @@ if (isset($_GET['parking_hotel'])) {
     $parkingHotel = '';
 }
 
-$filterList = array();
-$filterListBoll = false;
-$resetButton = false;
+
+
 
 if (($parkingHotel !== '')) {
     $filterList = array();
@@ -138,18 +130,6 @@ if(count($hotels) > 0){
         <div class="row">
             <div class="col-6 offset-3">
                 <form action="" method="GET">
-
-                    <!-- <div class="row">
-                        <div class="col-auto">
-                            <label for="filter_name" class="form-label">Name Hotel</label>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-auto">
-                            <input type="text" class="form-control" id="filter_name" placeholder="Hotel Example" name="name_hotel">
-                        </div>
-                    </div> -->
-
                     <div class="row">
                         <div class="col-auto">
                             <label for="filter_hotel" class="form-label">Vote Hotel</label>
@@ -225,6 +205,7 @@ if(count($hotels) > 0){
                         </tr>
                     </thead>
                     <tbody class="text-capitalize">
+
                         <?php
                         if ($filterListBoll) {
                             foreach ($filterList as $hotelsKey => $hotel) {
@@ -259,6 +240,7 @@ if(count($hotels) > 0){
                             }
                         }
                         ?>
+
                     </tbody>
                 </table>
                 <?php
